@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                        <h5 style="text-align: center;">匯率換算</h5>
+                        <br>
+                        <p>臺灣銀行（現金賣出價）</p>
+                        <input type="text" class="form-control" id="inp" placeholder="輸入金額" required>
+                        <hr>
+                        <select class="form-control" id="cr" required>
+                            <option selected hidden value="">選擇貨幣</option>
+                            <option value="台幣">台幣 TWD</option>
+                            <option value="美金">美金 USD</option>
+                            <option value="日圓">日圓 JPY</option>
+                            <option value="澳幣">澳幣 AUD</option>
+                            <option value="歐元">歐元 EUR</option>
+                            <option value="英鎊">英鎊 GBP</option>
+                            <option value="港幣">港幣 HKD</option>         
+                            <option value="韓元">韓元 KRW</option>
+                            <option value="人民幣">人民幣 CNY</option> 
+                        </select>
+                        <h6 style="text-align: center;">換</h6>
+                        <select class="form-control" id="crr" required>
+                          <option selected hidden value="">選擇貨幣</option>
+                          <option value="台幣">台幣 TWD</option>
+                          <option value="美金">美金 USD</option>
+                          <option value="日圓">日圓 JPY</option>
+                          <option value="澳幣">澳幣 AUD</option>
+                          <option value="歐元">歐元 EUR</option>
+                          <option value="英鎊">英鎊 GBP</option>
+                          <option value="港幣">港幣 HKD</option>         
+                          <option value="韓元">韓元 KRW</option>
+                          <option value="人民幣">人民幣 CNY</option> 
+                        </select>
+                        <hr>
+                        <p id='ans'></p>
+                        <button type="submit" class="btn btn-outline-success" style="width: 50%;" onclick=tbc() >確認</button> 
+                    </div>
+                </div>      
+              </div>
+        </div>
+    </div>
+    
+    <!-- 引入jQuery放前面（先引用） -->
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+    <!-- 引入JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        var data = [{'TIME': '2020-10-31 22:17:12',
+        '幣別': '美金',
+        '現金買價': '28.21',
+        '現金賣價': '28.88',
+        '即期買價': '28.535',
+        '即期賣價': '28.685',
+        '現金中價': '28.55'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '港幣',
+        '現金買價': '3.535',
+        '現金賣價': '3.739',
+        '即期買價': '3.656',
+        '即期賣價': '3.726',
+        '現金中價': '3.64'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '英鎊',
+        '現金買價': '35.84',
+        '現金賣價': '37.96',
+        '即期買價': '36.735',
+        '即期賣價': '37.365',
+        '現金中價': '36.90'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '澳幣',
+        '現金買價': '19.72',
+        '現金賣價': '20.5',
+        '即期買價': '19.935',
+        '即期賣價': '20.28',
+        '現金中價': '20.11'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '加拿大幣',
+        '現金買價': '21',
+        '現金賣價': '21.91',
+        '即期買價': '21.33',
+        '即期賣價': '21.66',
+        '現金中價': '21.45'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '新加坡幣',
+        '現金買價': '20.37',
+        '現金賣價': '21.28',
+        '即期買價': '20.84',
+        '即期賣價': '21.06',
+        '現金中價': '20.83'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '瑞士法郎',
+        '現金買價': '30.4',
+        '現金賣價': '31.6',
+        '即期買價': '31.01',
+        '即期賣價': '31.4',
+        '現金中價': '31.00'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '日圓',
+        '現金買價': '0.2641',
+        '現金賣價': '0.2769',
+        '即期買價': '0.2711',
+        '即期賣價': '0.2757',
+        '現金中價': '0.27'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '南非幣',
+        '現金買價': '-',
+        '現金賣價': '-',
+        '即期買價': '1.716',
+        '即期賣價': '1.806',
+        '現金中價': '-'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '瑞典幣',
+        '現金買價': '2.83',
+        '現金賣價': '3.35',
+        '即期買價': '3.16',
+        '即期賣價': '3.28',
+        '現金中價': '3.09'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '紐元',
+        '現金買價': '18.46',
+        '現金賣價': '19.31',
+        '即期買價': '18.79',
+        '即期賣價': '19.09',
+        '現金中價': '18.88'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '泰幣',
+        '現金買價': '0.791',
+        '現金賣價': '0.981',
+        '即期買價': '0.9004',
+        '即期賣價': '0.9464',
+        '現金中價': '0.89'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '菲國比索',
+        '現金買價': '0.516',
+        '現金賣價': '0.649',
+        '即期買價': '-',
+        '即期賣價': '-',
+        '現金中價': '0.58'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '印尼幣',
+        '現金買價': '0.00158',
+        '現金賣價': '0.00228',
+        '即期買價': '-',
+        '即期賣價': '-',
+        '現金中價': '0.00'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '歐元',
+        '現金買價': '32.52',
+        '現金賣價': '33.86',
+        '即期買價': '33.035',
+        '即期賣價': '33.635',
+        '現金中價': '33.19'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '韓元',
+        '現金買價': '0.02344',
+        '現金賣價': '0.02734',
+        '即期買價': '-',
+        '即期賣價': '-',
+        '現金中價': '0.03'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '越南盾',
+        '現金買價': '0.00084',
+        '現金賣價': '0.00134',
+        '即期買價': '-',
+        '即期賣價': '-',
+        '現金中價': '0.00'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '馬來幣',
+        '現金買價': '5.777',
+        '現金賣價': '7.402',
+        '即期買價': '-',
+        '即期賣價': '-',
+        '現金中價': '6.59'},
+       {'TIME': '2020-10-31 22:17:12',
+        '幣別': '人民幣',
+        '現金買價': '4.178',
+        '現金賣價': '4.34',
+        '即期買價': '4.245',
+        '即期賣價': '4.305',
+        '現金中價': '4.26'}];
+        var inp = document.getElementById("inp");
+        var cr = document.getElementById("cr");
+        var crr = document.getElementById("crr");
+        function tbc(){
+            var new_ = {};
+            for (i=0; i < data.length; i++){
+                if (cr.value == data[i]['幣別'] && data[i]['現金賣價'] == '-'){
+                    new_['幣別'] = data[i]['幣別'];
+                    new_['轉換台幣'] = '-';
+                }else if (cr.value == data[i]['幣別']){
+                    new_['幣別'] = data[i]['幣別'];
+                    x = parseFloat(inp.value) * parseFloat(data[i]['現金賣價']) ;
+                    new_['轉換台幣'] = x;
+                };
+            };
+            final = {}
+            for (i=0; i < data.length; i++){
+                if (cr.value == crr.value && data[i]['現金賣價'] != '-'){
+                    x = parseFloat(inp.value);
+                    final['轉換後'] = x;
+                }else if (cr.value == '台幣' && crr.value == data[i]['幣別'] && data[i]['現金賣價'] != '-'){
+                    x = parseFloat(inp.value) / parseFloat(data[i]['現金賣價']);
+                    final['轉換後'] = x;
+                }else if (crr.value == '台幣' && cr.value == data[i]['幣別'] && data[i]['現金賣價'] != '-'){
+                    x = parseFloat(inp.value) * parseFloat(data[i]['現金賣價']);
+                    final['轉換後'] = x;
+                }else if (data[i]['幣別'] == crr.value && data[i]['現金賣價'] != '-'){
+                    x = parseFloat(new_['轉換台幣']) / parseFloat(data[i]['現金賣價']);
+                    final['轉換後'] = x;
+                };
+            };
+            document.getElementById("ans").innerHTML= '約  ' + final['轉換後'].toLocaleString('zh-Hant', {maximumFractionDigits:2}) + ' 元';
+        };
+  
+    </script>
+    
+</body>
+</html>
