@@ -32,16 +32,16 @@
                         </select>
                         <h6 style="text-align: center;">換</h6>
                         <select class="form-control" id="crr" required>
-                          <option selected hidden value="">選擇貨幣</option>
-                          <option value="台幣">台幣 TWD</option>
-                          <option value="美金">美金 USD</option>
-                          <option value="日圓">日圓 JPY</option>
-                          <option value="澳幣">澳幣 AUD</option>
-                          <option value="歐元">歐元 EUR</option>
-                          <option value="英鎊">英鎊 GBP</option>
-                          <option value="港幣">港幣 HKD</option>         
-                          <option value="韓元">韓元 KRW</option>
-                          <option value="人民幣">人民幣 CNY</option> 
+                            <option selected hidden value="">選擇貨幣</option>
+                            <option value="台幣">台幣 TWD</option>
+                            <option value="美金">美金 USD</option>
+                            <option value="日圓">日圓 JPY</option>
+                            <option value="澳幣">澳幣 AUD</option>
+                            <option value="歐元">歐元 EUR</option>
+                            <option value="英鎊">英鎊 GBP</option>
+                            <option value="港幣">港幣 HKD</option>         
+                            <option value="韓元">韓元 KRW</option>
+                            <option value="人民幣">人民幣 CNY</option> 
                         </select>
                         <hr>
                         <p id='ans'></p>
@@ -207,24 +207,19 @@
                     new_['轉換台幣'] = '-';
                 }else if (cr.value == data[i]['幣別']){
                     new_['幣別'] = data[i]['幣別'];
-                    x = parseFloat(inp.value) * parseFloat(data[i]['現金賣價']) ;
-                    new_['轉換台幣'] = x;
+                    new_['轉換台幣'] = parseFloat(inp.value) * parseFloat(data[i]['現金賣價']) ;
                 };
             };
             final = {}
             for (i=0; i < data.length; i++){
                 if (cr.value == crr.value && data[i]['現金賣價'] != '-'){
-                    x = parseFloat(inp.value);
-                    final['轉換後'] = x;
+                    final['轉換後'] = parseFloat(inp.value);
                 }else if (cr.value == '台幣' && crr.value == data[i]['幣別'] && data[i]['現金賣價'] != '-'){
-                    x = parseFloat(inp.value) / parseFloat(data[i]['現金賣價']);
-                    final['轉換後'] = x;
+                    final['轉換後'] = parseFloat(inp.value) / parseFloat(data[i]['現金賣價']);
                 }else if (crr.value == '台幣' && cr.value == data[i]['幣別'] && data[i]['現金賣價'] != '-'){
-                    x = parseFloat(inp.value) * parseFloat(data[i]['現金賣價']);
-                    final['轉換後'] = x;
+                    final['轉換後'] = parseFloat(inp.value) * parseFloat(data[i]['現金賣價']);
                 }else if (data[i]['幣別'] == crr.value && data[i]['現金賣價'] != '-'){
-                    x = parseFloat(new_['轉換台幣']) / parseFloat(data[i]['現金賣價']);
-                    final['轉換後'] = x;
+                    final['轉換後'] = parseFloat(new_['轉換台幣']) / parseFloat(data[i]['現金賣價']);
                 };
             };
             document.getElementById("ans").innerHTML= '約  ' + final['轉換後'].toLocaleString('zh-Hant', {maximumFractionDigits:2}) + ' 元';
